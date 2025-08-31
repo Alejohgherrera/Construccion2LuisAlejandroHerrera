@@ -5,9 +5,8 @@
 package CS2.luisherrera.app.domain.ports;
 
 import CS2.luisherrera.app.domain.model.Order;
-import java.util.Map;
 
 public interface CreateOrderPort {
 
-    Order createOrder(String patientSocialSecurityNumber, String doctorSocialSecurityNumber, String orderType, Map<String, Object> orderDetails);
+    Order createOrder(String patientSocialSecurityNumber, String doctorSocialSecurityNumber, String orderType);
 }

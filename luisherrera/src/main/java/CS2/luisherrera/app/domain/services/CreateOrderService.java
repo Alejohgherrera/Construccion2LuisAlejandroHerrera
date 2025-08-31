@@ -5,16 +5,26 @@
 package CS2.luisherrera.app.domain.services;
 
 import CS2.luisherrera.app.domain.model.Order;
-import CS2.luisherrera.app.domain.ports.CreateOrderPort;
-import org.springframework.stereotype.Service;
-import java.util.Map;
+import CS2.luisherrera.app.domain.model.Patient;
+import CS2.luisherrera.app.domain.model.Doctor;
 
-@Service
-public class CreateOrderService implements CreateOrderPort {
 
-    @Override
-    public Order createOrder(String patientSocialSecurityNumber, String doctorSocialSecurityNumber, String orderType, Map<String, Object> orderDetails) {
-        System.out.println("Ejecutando servicio de Creación de Órdenes: Creando orden para el paciente " + patientSocialSecurityNumber);
-        return null;
+public class CreateOrderService {
+
+    
+
+    public Order createOrder(String patientSocialSecurityNumber, String doctorSocialSecurityNumber, String orderType) {
+        
+        
+        
+        System.out.println("Se ha creado y guardado la orden de tipo: " + orderType);
+        
+     
+        
+        Patient patient = new Patient("Juan Perez", "12345678", null, null);
+        Doctor doctor = new Doctor(null, "Medicina General", "1234", 15.0, true);
+        Order newOrder = new Order(patient, doctor, orderType);
+        
+        return newOrder;
     }
 }

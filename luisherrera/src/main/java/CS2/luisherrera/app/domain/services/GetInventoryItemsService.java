@@ -4,28 +4,23 @@
  */
 package CS2.luisherrera.app.domain.services;
 
-import CS2.luisherrera.app.domain.model.Medication;
-import CS2.luisherrera.app.domain.model.Procedure;
-import CS2.luisherrera.app.domain.ports.GetInventoryItemsPort;
-import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+import CS2.luisherrera.app.domain.model.InventoryItem;
 import java.util.List;
+import java.util.ArrayList;
 
-@Service
-public class GetInventoryItemsService implements GetInventoryItemsPort {
+public class GetInventoryItemsService {
 
-    private List<Medication> medications = new ArrayList<>();
-    private List<Procedure> procedures = new ArrayList<>();
+    
 
-    @Override
-    public List<Medication> getAllMedications() {
-        System.out.println("Ejecutando servicio de Inventario: Obteniendo todos los medicamentos.");
-        return medications;
-    }
+    public List<InventoryItem> getAvailableItems() {
 
-    @Override
-    public List<Procedure> getAllProcedures() {
-        System.out.println("Ejecutando servicio de Inventario: Obteniendo todos los procedimientos.");
-        return procedures;
+        
+        System.out.println("Simulando la obtención de ítems del inventario...");
+        
+        
+        List<InventoryItem> availableItems = new ArrayList<>();
+        
+        
+        return availableItems;
     }
 }

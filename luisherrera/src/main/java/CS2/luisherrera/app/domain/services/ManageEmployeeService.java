@@ -5,43 +5,34 @@
 package CS2.luisherrera.app.domain.services;
 
 import CS2.luisherrera.app.domain.model.Employee;
-import CS2.luisherrera.app.domain.ports.ManageEmployeePort;
-import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
+import CS2.luisherrera.app.domain.model.emuns.Role;
 
-@Service
-public class ManageEmployeeService implements ManageEmployeePort {
+import java.util.Date;
 
-    private List<Employee> employees = new ArrayList<>();
 
-    @Override
-    public Employee addEmployee(Employee employee) {
-        System.out.println("Ejecutando servicio de Gestión de Empleados: Añadiendo al empleado " + employee.getFullName());
-        employees.add(employee);
-        return employee;
+public class ManageEmployeeService {
+
+   
+
+    public Employee createEmployee(String fullName, String socialSecurityNumber, Date hireDate, Role position) {
+        
+       
+        
+        System.out.println("Simulando la creación de un empleado...");
+        
+       
+        return new Employee(fullName, socialSecurityNumber, hireDate, position);
     }
-
-    @Override
-public Employee updateEmployee(String socialSecurityNumber, Employee employeeDetails) {
-        System.out.println("Ejecutando servicio de Gestión de Empleados: Actualizando al empleado con cédula " + socialSecurityNumber);
-        return null;
+    
+    public Employee findEmployeeBySocialSecurityNumber(String socialSecurityNumber) {
+        
+       
+        
+        System.out.println("Simulando la búsqueda del empleado con cédula: " + socialSecurityNumber);
+        
+       
+        return new Employee("Simulado", socialSecurityNumber, new Date(), Role.OTHER);
     }
-
-    @Override
-    public void removeEmployee(String socialSecurityNumber) {
-        System.out.println("Ejecutando servicio de Gestión de Empleados: Eliminando al empleado con cédula " + socialSecurityNumber);
-    }
-
-    @Override
-    public List<Employee> getAllEmployees() {
-        System.out.println("Ejecutando servicio de Gestión de Empleados: Obteniendo todos los empleados.");
-        return employees;
-    }
-
-    @Override
-    public Employee getEmployeeBySocialSecurityNumber(String socialSecurityNumber) {
-        System.out.println("Ejecutando servicio de Gestión de Empleados: Obteniendo empleado con cédula " + socialSecurityNumber);
-        return null;
-    }
+    
+    
 }

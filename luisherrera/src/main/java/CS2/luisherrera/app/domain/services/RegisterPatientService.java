@@ -5,15 +5,18 @@
 package CS2.luisherrera.app.domain.services;
 
 import CS2.luisherrera.app.domain.model.Patient;
-import CS2.luisherrera.app.domain.ports.RegisterPatientPort;
-import org.springframework.stereotype.Service;
 
-@Service
-public class RegisterPatientService implements RegisterPatientPort {
+public class RegisterPatientService {
 
-    @Override
+    
+
     public Patient registerPatient(Patient patient) {
-        System.out.println("Ejecutando servicio de Registro de Paciente: Paciente " + patient.getFullName() + " registrado.");
+        
+       
+        
+        System.out.println("Simulando el registro del paciente: " + patient.getFullName());
+        
+        
         return patient;
     }
 }

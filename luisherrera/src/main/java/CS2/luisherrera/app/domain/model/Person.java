@@ -8,7 +8,7 @@ import java.util.Date;
 
 public abstract class Person {
 
-    private String socialSecurityNumber; // Represents 'numeroCedula'
+    private String socialSecurityNumber; 
     private String fullName;
     private String email;
     private String phoneNumber;

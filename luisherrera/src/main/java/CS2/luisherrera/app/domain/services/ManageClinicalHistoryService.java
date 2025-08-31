@@ -5,21 +5,24 @@
 package CS2.luisherrera.app.domain.services;
 
 import CS2.luisherrera.app.domain.model.ClinicalHistory;
-import CS2.luisherrera.app.domain.ports.ManageClinicalHistoryPort;
-import org.springframework.stereotype.Service;
+import java.util.HashMap;
 import java.util.Map;
 
-@Service
-public class ManageClinicalHistoryService implements ManageClinicalHistoryPort {
+public class ManageClinicalHistoryService {
 
-    @Override
-    public ClinicalHistory getClinicalHistory(String patientSocialSecurityNumber) {
-        System.out.println("Ejecutando servicio de Historia Clínica: Obteniendo historial para el paciente " + patientSocialSecurityNumber);
-        return null;
-    }
+   
 
-    @Override
-    public void updateClinicalHistory(String patientSocialSecurityNumber, Map<String, String> newRecord) {
-        System.out.println("Ejecutando servicio de Historia Clínica: Actualizando historial para el paciente " + patientSocialSecurityNumber);
+   
+    public ClinicalHistory addRecordToHistory(String patientSocialSecurityNumber, String recordKey, Map<String, String> recordDetails) {
+        
+      
+        
+        System.out.println("Simulando la adición de un registro al historial clínico de: " + patientSocialSecurityNumber);
+        
+       
+        ClinicalHistory history = new ClinicalHistory(patientSocialSecurityNumber);
+        history.getHistory().put(recordKey, recordDetails);
+        
+        return history;
     }
 }
