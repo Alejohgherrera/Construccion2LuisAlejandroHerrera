@@ -3,6 +3,8 @@ Aplicación de Gestión de Información para una Clínica. Desarrollada con Spri
 
 ## Integrantes
 ### Luis Alejandro Herrera Galvis 
+### Laura Quintero Correra
+### Estefania Loaiza Acosta
 ### Grupo Lunes-miercoles 8:00pm - 10:00pm
 
 ## Tecnologias
