@@ -10,13 +10,11 @@ import CS2.luisherrera.app.application.usecases.OrderUseCase;
 import CS2.luisherrera.app.domain.model.Order;
 
 public class OrderClient {
-
     private static final String MENU = "Ingrese una de las opciones \n 1. para crear una orden \n 2. para salir";
     private static Scanner reader = new Scanner(System.in);
     private OrderUseCase orderUseCase;
     private OrderBuilder orderBuilder;
 
-    
     public OrderClient(OrderUseCase orderUseCase, OrderBuilder orderBuilder) {
         this.orderUseCase = orderUseCase;
         this.orderBuilder = orderBuilder;
@@ -36,7 +34,8 @@ public class OrderClient {
             switch (option) {
                 case "1": {
                     Order order = readOrderInfo();
-                    orderUseCase.createOrder(order.getPatientSocialSecurityNumber(), order.getDoctorSocialSecurityNumber(), order.getOrderType());
+                   
+                    orderUseCase.create(order.getPatientSocialSecurityNumber(), order.getDoctorSocialSecurityNumber(), order.getOrderType());
                     System.out.println("Orden creada con exito!");
                     return true;
                 }
@@ -54,7 +53,7 @@ public class OrderClient {
             return true;
         }
     }
-
+    
     private Order readOrderInfo() throws Exception {
         System.out.println("ingrese la cedula del paciente");
         String patientDocument = reader.nextLine();

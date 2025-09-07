@@ -5,34 +5,29 @@
 package CS2.luisherrera.app.domain.services;
 
 import CS2.luisherrera.app.domain.model.Employee;
+import CS2.luisherrera.app.domain.model.Doctor;
+import CS2.luisherrera.app.domain.model.Nurse;
 import CS2.luisherrera.app.domain.model.emuns.Role;
-
-import java.util.Date;
-
+import CS2.luisherrera.app.domain.repositories.EmployeeRepository;
 
 public class ManageEmployeeService {
 
-   
+    private EmployeeRepository employeeRepository;
 
-    public Employee createEmployee(String fullName, String socialSecurityNumber, Date hireDate, Role position) {
-        
-       
-        
-        System.out.println("Simulando la creación de un empleado...");
-        
-       
-        return new Employee(fullName, socialSecurityNumber, hireDate, position);
+    public ManageEmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
-    
-    public Employee findEmployeeBySocialSecurityNumber(String socialSecurityNumber) {
-        
-       
-        
-        System.out.println("Simulando la búsqueda del empleado con cédula: " + socialSecurityNumber);
-        
-       
-        return new Employee("Simulado", socialSecurityNumber, new Date(), Role.OTHER);
+
+   
+    public Employee create(Object employee) throws Exception {
+        if (employee instanceof Doctor) {
+            Doctor doctor = (Doctor) employee;
+            return employeeRepository.save(doctor.getEmployee()); 
+        } else if (employee instanceof Nurse) {
+            Nurse nurse = (Nurse) employee;
+            return employeeRepository.save(nurse.getEmployee()); 
+        } else {
+            throw new Exception("Tipo de empleado no soportado.");
+        }
     }
-    
-    
 }

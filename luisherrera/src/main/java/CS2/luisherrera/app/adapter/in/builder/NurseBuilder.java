@@ -6,31 +6,26 @@ package CS2.luisherrera.app.adapter.in.builder;
 
 import CS2.luisherrera.app.adapter.in.validators.PersonValidator;
 import CS2.luisherrera.app.adapter.in.validators.SimpleValidator;
-import CS2.luisherrera.app.domain.model.Employee;
-
+import CS2.luisherrera.app.domain.model.Nurse;
 import java.util.Date;
 
-public class EmployeeBuilder extends SimpleValidator {
-
-   
+public class NurseBuilder extends SimpleValidator {
+    
     private PersonValidator personValidator;
 
-    public EmployeeBuilder() {
+    public NurseBuilder() {
         this.personValidator = new PersonValidator();
     }
-
-    public Employee build(String fullName, String socialSecurityNumber, String hireDate) throws Exception {
-        
+    
+    public Nurse build(String fullName, String socialSecurityNumber, String hireDate, String certification, String shift) throws Exception {
         
         personValidator.validate(fullName, socialSecurityNumber);
-        
-        
         stringValidator("fecha de contratacion", hireDate);
+        stringValidator("certificacion", certification);
+        stringValidator("turno", shift);
         
-      
-        System.out.println("generando empleado...");
+        System.out.println("Generando enfermera...");
         
-     
-        return new Employee(fullName, socialSecurityNumber, new Date(), null);
+        return new Nurse(fullName, socialSecurityNumber, new Date(), certification, shift);
     }
 }

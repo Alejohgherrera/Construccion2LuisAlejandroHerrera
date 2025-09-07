@@ -15,7 +15,7 @@ public class OrderBuilder extends SimpleValidator {
         stringValidator("cedula del doctor", doctorSocialSecurityNumber);
         stringValidator("tipo de orden", orderType);
         
-        System.out.println("Construyendo el objeto Order...");
+        System.out.println("Generando  Orden...");
         
        
         return new Order(patientSocialSecurityNumber, doctorSocialSecurityNumber, orderType);

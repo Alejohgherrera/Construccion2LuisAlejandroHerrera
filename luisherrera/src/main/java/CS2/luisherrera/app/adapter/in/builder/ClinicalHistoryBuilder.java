@@ -19,7 +19,7 @@ public class ClinicalHistoryBuilder extends SimpleValidator {
             throw new Exception("Los detalles del registro no pueden estar vacíos.");
         }
         
-        System.out.println("Construyendo el objeto ClinicalHistory...");
+        System.out.println("generando la historia clinica...");
         
        
         ClinicalHistory history = new ClinicalHistory(patientSocialSecurityNumber);

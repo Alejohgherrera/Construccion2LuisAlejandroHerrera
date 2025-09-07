@@ -22,7 +22,7 @@ public class PatientBuilder {
         personValidator.validate(fullName, socialSecurityNumber);
         
       
-        System.out.println("Construyendo el objeto Patient...");
+        System.out.println("Generando paciente...");
         
         return new Patient(fullName, socialSecurityNumber, null, null);
     }

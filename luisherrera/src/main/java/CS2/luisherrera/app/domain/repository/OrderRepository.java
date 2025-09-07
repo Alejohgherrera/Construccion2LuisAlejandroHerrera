@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package CS2.luisherrera.app.domain.model.emuns;
+package CS2.luisherrera.app.domain.repositories;
 
-public enum Role {
-    DOCTOR,
-    NURSE,
-    ADMIN,
-    OTHER 
+import CS2.luisherrera.app.domain.model.Order;
+
+public interface OrderRepository {
+    Order save(Order order);
+    
 }

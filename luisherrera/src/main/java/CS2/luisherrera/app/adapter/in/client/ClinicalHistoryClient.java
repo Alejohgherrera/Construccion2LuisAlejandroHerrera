@@ -79,7 +79,7 @@ public class ClinicalHistoryClient {
             if (line.equalsIgnoreCase("fin")) {
                 break;
             }
-            // Suponiendo que los detalles se ingresan como "clave:valor"
+           
             String[] parts = line.split(":", 2);
             if (parts.length == 2) {
                 details.put(parts[0].trim(), parts[1].trim());
