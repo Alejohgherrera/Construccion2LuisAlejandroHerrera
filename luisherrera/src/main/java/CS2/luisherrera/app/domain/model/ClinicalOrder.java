@@ -4,57 +4,39 @@
  */
 package CS2.luisherrera.app.domain.model;
 
-import java.util.Objects;
-import java.util.UUID;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /**
- * Entidad de dominio que representa una orden clínica en el sistema.
- * Es la pieza central del modelo de negocio, independiente de la tecnología.
+ * Modelo de Dominio que representa una orden clínica.
+ * Esta clase también está marcada como una Entidad JPA, mapeada a una tabla de la base de datos.
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
 public class ClinicalOrder {
 
-    private String orderId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String patientId;
     private String doctorId;
     private String orderText;
+    private LocalDateTime createdAt;
 
-    /**
-     * Constructor de la entidad. Genera un UUID para el orderId.
-     * @param patientId El ID del paciente.
-     * @param doctorId El ID del doctor.
-     * @param orderText El texto descriptivo de la orden.
-     */
+    // Constructor para inicializar los datos de la orden
     public ClinicalOrder(String patientId, String doctorId, String orderText) {
-        this.orderId = UUID.randomUUID().toString(); // Genera un ID único.
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.orderText = orderText;
-    }
-
-    // Getters para acceder a los datos de la entidad
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public String getPatientId() {
-        return patientId;
-    }
-
-    public String getDoctorId() {
-        return doctorId;
-    }
-
-    public String getOrderText() {
-        return orderText;
-    }
-
-    @Override
-    public String toString() {
-        return "ClinicalOrder{" +
-               "orderId='" + orderId + '\'' +
-               ", patientId='" + patientId + '\'' +
-               ", doctorId='" + doctorId + '\'' +
-               ", orderText='" + orderText + '\'' +
-               '}';
+        this.createdAt = LocalDateTime.now(); // Se establece la fecha y hora de creación automáticamente
     }
 }
