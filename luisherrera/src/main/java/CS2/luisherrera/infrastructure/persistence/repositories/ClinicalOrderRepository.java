@@ -4,16 +4,10 @@
  */
 package CS2.luisherrera.infrastructure.persistence.repositories;
 
-import CS2.luisherrera.persistence.entities.PatientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
-
+import CS2.luisherrera.app.domain.model.ClinicalOrder; // Importación corregida
 
 @Repository
-public interface SpringPacienteRepository extends JpaRepository<PatientEntity, Long> {
-
-   
-    Optional<PatientEntity> findByEmail(String email);
+public interface ClinicalOrderRepository extends JpaRepository<ClinicalOrder, String> {
 }

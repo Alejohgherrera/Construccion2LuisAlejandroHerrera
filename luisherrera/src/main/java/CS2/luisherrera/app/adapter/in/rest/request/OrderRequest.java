@@ -2,27 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package CS2.luisherrera.app.domain.model;
+package CS2.luisherrera.app.adapter.in.rest.request;
 
 /**
- * Modelo de dominio para una orden.
- * Representa una orden médica emitida por un doctor para un paciente.
+ * Clase de solicitud (Request) para la creación de una nueva orden.
+ * Define la estructura de los datos esperados en las peticiones REST.
  */
-public class Order {
+public class OrderRequest {
+
     private String patientId;
     private String doctorId;
     private String service;
 
-    public Order(String patientId, String doctorId, String service) {
-        this.patientId = patientId;
-        this.doctorId = doctorId;
-        this.service = service;
-    }
-
-    public Order() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    // Getters y Setters
     public String getPatientId() {
         return patientId;
     }

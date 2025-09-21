@@ -5,42 +5,65 @@
 
 package CS2.luisherrera.app.domain.model;
 
-import CS2.luisherrera.app.domain.model.emuns.Role;
-import java.util.Date;
-
+/**
+ * Modelo de dominio para un doctor.
+ * Esta clase es el objeto de negocio, es independiente de la persistencia.
+ */
 public class Doctor {
-
-    private Employee employee; 
+    private String fullName;
+    private String socialSecurityNumber;
     private String medicalSpecialization;
     private String medicalLicenseNumber;
-    private double consultationFee;
-    private boolean isAcceptingNewPatients;
 
-    public Doctor(String fullName, String socialSecurityNumber, Date hireDate, String medicalSpecialization, String medicalLicenseNumber, double consultationFee, boolean isAcceptingNewPatients) {
-        this.employee = new Employee(fullName, socialSecurityNumber, hireDate, Role.DOCTOR);
+    public Doctor(String fullName, String socialSecurityNumber, String medicalSpecialization, String medicalLicenseNumber) {
+        this.fullName = fullName;
+        this.socialSecurityNumber = socialSecurityNumber;
         this.medicalSpecialization = medicalSpecialization;
         this.medicalLicenseNumber = medicalLicenseNumber;
-        this.consultationFee = consultationFee;
-        this.isAcceptingNewPatients = isAcceptingNewPatients;
     }
 
-   
-    public Employee getEmployee() {
-        return this.employee;
+    public Doctor(String name, String socialSecurityNumber, Object object, String medicalSpecialization, String medicalLicenseNumber, double d, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    // Getters y Setters
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public String getSocialSecurityNumber() {
-        return this.employee.getSocialSecurityNumber();
+        return socialSecurityNumber;
     }
-    
-    
-    public String getMedicalSpecialization() { return medicalSpecialization; }
-    public String getMedicalLicenseNumber() { return medicalLicenseNumber; }
-    public double getConsultationFee() { return consultationFee; }
-    public boolean isAcceptingNewPatients() { return isAcceptingNewPatients; }
 
-    public void setMedicalSpecialization(String medicalSpecialization) { this.medicalSpecialization = medicalSpecialization; }
-    public void setMedicalLicenseNumber(String medicalLicenseNumber) { this.medicalLicenseNumber = medicalLicenseNumber; }
-    public void setConsultationFee(double consultationFee) { this.consultationFee = consultationFee; }
-    public void setAcceptingNewPatients(boolean isAcceptingNewPatients) { this.isAcceptingNewPatients = isAcceptingNewPatients; }
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    public String getMedicalSpecialization() {
+        return medicalSpecialization;
+    }
+
+    public void setMedicalSpecialization(String medicalSpecialization) {
+        this.medicalSpecialization = medicalSpecialization;
+    }
+
+    public String getMedicalLicenseNumber() {
+        return medicalLicenseNumber;
+    }
+
+    public void setMedicalLicenseNumber(String medicalLicenseNumber) {
+        this.medicalLicenseNumber = medicalLicenseNumber;
+    }
+
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Employee getEmployee() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

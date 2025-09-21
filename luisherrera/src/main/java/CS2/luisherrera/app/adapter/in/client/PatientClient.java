@@ -4,62 +4,99 @@
  */
 package CS2.luisherrera.app.adapter.in.client;
 
-import java.util.Scanner;
 import CS2.luisherrera.app.adapter.in.builder.PatientBuilder;
-import CS2.luisherrera.app.application.usecases.PatientUseCase;
 import CS2.luisherrera.app.domain.model.Patient;
 
+import java.util.Scanner;
+
+/**
+ * Clase que actúa como un cliente de interfaz de línea de comandos para
+ * que un paciente interactúe con el sistema. Utiliza los constructores para crear
+ * objetos de dominio y simula la interacción con los servicios de la aplicación.
+ */
 public class PatientClient {
 
-    private static final String MENU = "Ingrese una de las opciones \n 1. para registrar un paciente \n 2. para salir";
-    private static Scanner reader = new Scanner(System.in);
-    private PatientUseCase patientUseCase;
-    private PatientBuilder patientBuilder;
+    private static final Scanner scanner = new Scanner(System.in);
+    private final PatientBuilder patientBuilder;
 
-    
-    public PatientClient(PatientUseCase patientUseCase, PatientBuilder patientBuilder) {
-        this.patientUseCase = patientUseCase;
-        this.patientBuilder = patientBuilder;
+    // Los servicios reales se inyectarían aquí en una aplicación Spring Boot.
+    // Por ejemplo:
+    // @Autowired
+    // private GetPatientService getPatientService;
+    // @Autowired
+    // private ManagePatientService managePatientService;
+
+    public PatientClient() {
+        this.patientBuilder = new PatientBuilder();
     }
 
-    public void session() {
-        boolean session = true;
-        while (session) {
-            session = menu();
-        }
+    /**
+     * Muestra el menú principal al usuario.
+     */
+    public void showMenu() {
+        System.out.println("--- Portal de Pacientes ---");
+        System.out.println("1. Registrar un nuevo paciente");
+        System.out.println("2. Salir");
+        System.out.print("Seleccione una opción: ");
     }
 
-    private boolean menu() {
-        try {
-            System.out.println(MENU);
-            String option = reader.nextLine();
-            switch (option) {
-                case "1": {
-                    Patient patient = readPatientInfo();
-                    patientUseCase.registerPatient(patient);
-                    System.out.println("Paciente registrado con exito!");
-                    return true;
+    /**
+     * Inicia el cliente de pacientes.
+     */
+    public void start() {
+        int option = 0;
+        while (option != 2) {
+            showMenu();
+            try {
+                option = Integer.parseInt(scanner.nextLine());
+                switch (option) {
+                    case 1:
+                        registerPatient();
+                        break;
+                    case 2:
+                        System.out.println("Saliendo del portal de pacientes.");
+                        break;
+                    default:
+                        System.out.println("Opción inválida. Por favor, intente de nuevo.");
                 }
-                case "2": {
-                    System.out.println("Hasta luego \n cerrando sesion");
-                    return false;
-                }
-                default: {
-                    System.out.println("Ingrese una opcion valida");
-                    return true;
-                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return true;
         }
     }
 
-    private Patient readPatientInfo() throws Exception {
-        System.out.println("ingrese el nombre del paciente");
-        String name = reader.nextLine();
-        System.out.println("ingrese la cedula del paciente");
-        String document = reader.nextLine();
-        return patientBuilder.build(name, document);
+    /**
+     * Proceso para registrar un nuevo paciente.
+     */
+    private void registerPatient() {
+        System.out.println("--- Registrar Nuevo Paciente ---");
+        try {
+            System.out.print("Ingrese nombre completo: ");
+            String fullName = scanner.nextLine();
+            System.out.print("Ingrese apellido: ");
+            String lastName = scanner.nextLine();
+            System.out.print("Ingrese número de teléfono: ");
+            String phoneNumber = scanner.nextLine();
+            System.out.print("Ingrese dirección: ");
+            String address = scanner.nextLine();
+            System.out.print("Ingrese enfermedad: ");
+            String disease = scanner.nextLine();
+            System.out.print("Ingrese número de seguridad social: ");
+            String socialSecurityNumber = scanner.nextLine();
+
+            Patient patient = patientBuilder.build(fullName, lastName, phoneNumber, address, disease, socialSecurityNumber);
+            System.out.println("Paciente creado: " + patient.getName() + " con NSS " + patient.getSocialSecurityNumber());
+
+            // En una aplicación real, se llamaría a un servicio para guardar el paciente.
+            // Ejemplo: managePatientService.save(patient);
+
+        } catch (Exception e) {
+            System.out.println("Error al registrar paciente: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        PatientClient client = new PatientClient();
+        client.start();
     }
 }

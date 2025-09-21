@@ -4,63 +4,36 @@
  */
 package CS2.luisherrera.app.adapter.in.client;
 
-import java.util.Scanner;
-import CS2.luisherrera.app.adapter.in.builder.OrderBuilder;
-import CS2.luisherrera.app.application.usecases.OrderUseCase;
-import CS2.luisherrera.app.domain.model.Order;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+/**
+ * Clase de cliente para interactuar con el servicio de órdenes.
+ * Utiliza RestTemplate para realizar llamadas a la API de órdenes.
+ */
+@Service
 public class OrderClient {
-    private static final String MENU = "Ingrese una de las opciones \n 1. para crear una orden \n 2. para salir";
-    private static Scanner reader = new Scanner(System.in);
-    private OrderUseCase orderUseCase;
-    private OrderBuilder orderBuilder;
 
-    public OrderClient(OrderUseCase orderUseCase, OrderBuilder orderBuilder) {
-        this.orderUseCase = orderUseCase;
-        this.orderBuilder = orderBuilder;
+    private final RestTemplate restTemplate;
+
+    // La URL se inyecta desde application.properties
+    @Value("${api.orders.url}")
+    private String ordersApiUrl;
+
+    // El bean de RestTemplate se inyecta aquí
+    public OrderClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-    public void session() {
-        boolean session = true;
-        while (session) {
-            session = menu();
-        }
-    }
-
-    private boolean menu() {
-        try {
-            System.out.println(MENU);
-            String option = reader.nextLine();
-            switch (option) {
-                case "1": {
-                    Order order = readOrderInfo();
-                   
-                    orderUseCase.create(order.getPatientSocialSecurityNumber(), order.getDoctorSocialSecurityNumber(), order.getOrderType());
-                    System.out.println("Orden creada con exito!");
-                    return true;
-                }
-                case "2": {
-                    System.out.println("Hasta luego \n cerrando sesion");
-                    return false;
-                }
-                default: {
-                    System.out.println("Ingrese una opcion valida");
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return true;
-        }
-    }
-    
-    private Order readOrderInfo() throws Exception {
-        System.out.println("ingrese la cedula del paciente");
-        String patientDocument = reader.nextLine();
-        System.out.println("ingrese la cedula del doctor");
-        String doctorDocument = reader.nextLine();
-        System.out.println("ingrese el tipo de orden");
-        String orderType = reader.nextLine();
-        return orderBuilder.build(patientDocument, doctorDocument, orderType);
+    /**
+     * Obtiene una orden por su ID.
+     * @param orderId El ID de la orden.
+     * @return El resultado de la llamada a la API en formato String.
+     */
+    public String getOrderById(Long orderId) {
+        // Concatenamos la URL base con el ID de la orden.
+        String url = ordersApiUrl + "/" + orderId;
+        return restTemplate.getForObject(url, String.class);
     }
 }

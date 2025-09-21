@@ -42,4 +42,12 @@ public class PatientEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getSocialSecurityNumber() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

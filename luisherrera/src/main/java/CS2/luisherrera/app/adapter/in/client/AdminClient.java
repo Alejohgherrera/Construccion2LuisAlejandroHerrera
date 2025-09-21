@@ -4,97 +4,133 @@
  */
 package CS2.luisherrera.app.adapter.in.client;
 
-import java.util.Scanner;
 import CS2.luisherrera.app.adapter.in.builder.DoctorBuilder;
-import CS2.luisherrera.app.adapter.in.builder.NurseBuilder;
-import CS2.luisherrera.app.application.usecases.AdminUseCase;
+import CS2.luisherrera.app.adapter.in.builder.PatientBuilder;
 import CS2.luisherrera.app.domain.model.Doctor;
-import CS2.luisherrera.app.domain.model.Nurse;
+import CS2.luisherrera.app.domain.model.Patient;
 
+import java.util.Scanner;
+
+/**
+ * Clase que actúa como un cliente de interfaz de línea de comandos para
+ * la gestión de la clínica. Utiliza los constructores para crear objetos
+ * de dominio y simula la interacción con los servicios de la aplicación.
+ */
 public class AdminClient {
 
-    private static final String MENU = "Ingrese una de las opciones \n 1. para crear doctor \n 2. para crear enfermero \n 3. para salir";
-    private static Scanner reader = new Scanner(System.in);
-    private AdminUseCase adminUseCase;
-    private DoctorBuilder doctorBuilder;
-    private NurseBuilder nurseBuilder;
+    private static final Scanner scanner = new Scanner(System.in);
+    private final PatientBuilder patientBuilder;
+    private final DoctorBuilder doctorBuilder;
 
-    public AdminClient(AdminUseCase adminUseCase, DoctorBuilder doctorBuilder, NurseBuilder nurseBuilder) {
-        this.adminUseCase = adminUseCase;
-        this.doctorBuilder = doctorBuilder;
-        this.nurseBuilder = nurseBuilder;
+    // Los servicios reales se inyectarían aquí en una aplicación Spring Boot.
+    // Por ejemplo:
+    // @Autowired
+    // private ManagePatientService managePatientService;
+    // @Autowired
+    // private ManageDoctorService manageDoctorService;
+
+    public AdminClient() {
+        this.patientBuilder = new PatientBuilder();
+        this.doctorBuilder = new DoctorBuilder();
     }
 
-    public void session() {
-        boolean session = true;
-        while (session) {
-            session = menu();
-        }
+    /**
+     * Muestra el menú principal al usuario.
+     */
+    public void showMenu() {
+        System.out.println("--- Panel de Administración de la Clínica ---");
+        System.out.println("1. Registrar nuevo paciente");
+        System.out.println("2. Registrar nuevo doctor");
+        System.out.println("3. Salir");
+        System.out.print("Seleccione una opción: ");
     }
 
-    private boolean menu() {
-        try {
-            System.out.println(MENU);
-            String option = reader.nextLine();
-            switch (option) {
-                case "1": {
-                    Doctor doctor = readDoctorInfo();
-                    adminUseCase.createDoctor(doctor);
-                    System.out.println("Doctor creado con exito!");
-                    return true;
+    /**
+     * Inicia el cliente de administración.
+     */
+    public void start() {
+        int option = 0;
+        while (option != 3) {
+            showMenu();
+            try {
+                option = Integer.parseInt(scanner.nextLine());
+                switch (option) {
+                    case 1:
+                        registerPatient();
+                        break;
+                    case 2:
+                        registerDoctor();
+                        break;
+                    case 3:
+                        System.out.println("Saliendo del panel de administración.");
+                        break;
+                    default:
+                        System.out.println("Opción inválida. Por favor, intente de nuevo.");
                 }
-                case "2": {
-                    Nurse nurse = readNurseInfo();
-                    adminUseCase.createNurse(nurse);
-                    System.out.println("Enfermero(a) creado(a) con exito!");
-                    return true;
-                }
-                case "3": {
-                    System.out.println("Hasta luego \n cerrando sesion");
-                    return false;
-                }
-                default: {
-                    System.out.println("Ingrese una opcion valida");
-                    return true;
-                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número.");
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return true;
         }
     }
-    
-    private Doctor readDoctorInfo() throws Exception {
-        System.out.println("ingrese el nombre completo del doctor");
-        String name = reader.nextLine();
-        System.out.println("ingrese la cedula del doctor");
-        String document = reader.nextLine();
-        System.out.println("ingrese la fecha de contratacion (YYYY-MM-DD)");
-        String hireDate = reader.nextLine();
-        System.out.println("ingrese la especializacion medica");
-        String specialization = reader.nextLine();
-        System.out.println("ingrese el numero de licencia medica");
-        String license = reader.nextLine();
-        System.out.println("ingrese la tarifa de consulta");
-        String fee = reader.nextLine();
-        System.out.println("esta aceptando nuevos pacientes? (true/false)");
-        String accepting = reader.nextLine();
-        
-        return doctorBuilder.build(name, document, hireDate, specialization, license, fee, accepting);
+
+    /**
+     * Proceso para registrar un nuevo paciente.
+     */
+    private void registerPatient() {
+        System.out.println("--- Registrar Nuevo Paciente ---");
+        try {
+            System.out.print("Ingrese nombre completo: ");
+            String fullName = scanner.nextLine();
+            System.out.print("Ingrese apellido: ");
+            String lastName = scanner.nextLine();
+            System.out.print("Ingrese número de teléfono: ");
+            String phoneNumber = scanner.nextLine();
+            System.out.print("Ingrese dirección: ");
+            String address = scanner.nextLine();
+            System.out.print("Ingrese enfermedad: ");
+            String disease = scanner.nextLine();
+            System.out.print("Ingrese número de seguridad social: ");
+            String socialSecurityNumber = scanner.nextLine();
+
+            Patient patient = patientBuilder.build(fullName, lastName, phoneNumber, address, disease, socialSecurityNumber);
+            System.out.println("Paciente creado: " + patient.getName() + " con NSS " + patient.getSocialSecurityNumber());
+
+            // En una aplicación real, se llamaría a un servicio para guardar el paciente.
+            // Ejemplo: managePatientService.save(patient);
+
+        } catch (Exception e) {
+            System.out.println("Error al registrar paciente: " + e.getMessage());
+        }
     }
 
-    private Nurse readNurseInfo() throws Exception {
-        System.out.println("ingrese el nombre completo del enfermero(a)");
-        String name = reader.nextLine();
-        System.out.println("ingrese la cedula del enfermero(a)");
-        String document = reader.nextLine();
-        System.out.println("ingrese la fecha de contratacion (YYYY-MM-DD)");
-        String hireDate = reader.nextLine();
-        System.out.println("ingrese la certificacion");
-        String certification = reader.nextLine();
-        System.out.println("ingrese el turno de trabajo");
-        String shift = reader.nextLine();
-        
-        return nurseBuilder.build(name, document, hireDate, certification, shift);
+    /**
+     * Proceso para registrar un nuevo doctor.
+     */
+    private void registerDoctor() {
+        System.out.println("--- Registrar Nuevo Doctor ---");
+        try {
+            System.out.print("Ingrese nombre completo: ");
+            String fullName = scanner.nextLine();
+            System.out.print("Ingrese número de seguridad social: ");
+            String socialSecurityNumber = scanner.nextLine();
+            System.out.print("Ingrese especialización médica: ");
+            String medicalSpecialization = scanner.nextLine();
+            System.out.print("Ingrese número de licencia médica: ");
+            String medicalLicenseNumber = scanner.nextLine();
+
+            Doctor doctor = doctorBuilder.build(fullName, socialSecurityNumber, medicalSpecialization, medicalLicenseNumber);
+            System.out.println("Doctor creado: " + doctor.getName() + " con licencia " + doctor.getMedicalLicenseNumber());
+
+            // En una aplicación real, se llamaría a un servicio para guardar el doctor.
+            // Ejemplo: manageDoctorService.save(doctor);
+
+        } catch (Exception e) {
+            System.out.println("Error al registrar doctor: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        AdminClient client = new AdminClient();
+        client.start();
     }
 }

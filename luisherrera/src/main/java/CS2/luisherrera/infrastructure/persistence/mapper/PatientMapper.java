@@ -2,31 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package CS2.luisherrera.persistence.entities;
+package CS2.luisherrera.infrastructure.persistence.mapper;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.io.Serializable;
 
 /**
- * Entidad que representa la tabla 'doctors' en la base de datos.
- * Esta clase se encarga de mapear los campos de la tabla a un objeto Java
- * para la capa de persistencia.
+ * Entidad de persistencia para la tabla 'patient' en la base de datos.
+ * Esta clase mapea los datos de la base de datos a un objeto Java.
+ * No es parte de la lógica de negocio, sino de la infraestructura.
  */
 @Entity
-@Table(name = "doctors")
-public class DoctorEntity implements Serializable {
+@Table(name = "patient")
+public class PatientMapper {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String socialSecurityNumber;
-    private String medicalSpecialization;
-    private String medicalLicenseNumber;
 
     // Getters y Setters
     public Long getId() {
@@ -51,21 +48,5 @@ public class DoctorEntity implements Serializable {
 
     public void setSocialSecurityNumber(String socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
-    }
-
-    public String getMedicalSpecialization() {
-        return medicalSpecialization;
-    }
-
-    public void setMedicalSpecialization(String medicalSpecialization) {
-        this.medicalSpecialization = medicalSpecialization;
-    }
-
-    public String getMedicalLicenseNumber() {
-        return medicalLicenseNumber;
-    }
-
-    public void setMedicalLicenseNumber(String medicalLicenseNumber) {
-        this.medicalLicenseNumber = medicalLicenseNumber;
     }
 }

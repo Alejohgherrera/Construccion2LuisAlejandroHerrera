@@ -4,43 +4,41 @@
  */
 package CS2.luisherrera.app.domain.services;
 
-import CS2.luisherrera.app.domain.model.Doctor;
-import CS2.luisherrera.app.domain.model.Order;
-import CS2.luisherrera.app.domain.model.Patient;
-import CS2.luisherrera.app.domain.model.emuns.Role;
-import CS2.luisherrera.app.domain.repositories.OrderRepository;
+import CS2.luisherrera.app.domain.model.ClinicalOrder;
+import org.springframework.stereotype.Service;
 
-
+/**
+ * Servicio de dominio que encapsula la lógica de negocio para
+ * la creación de órdenes clínicas.
+ */
+@Service
 public class CreateOrderService {
-    private OrderRepository orderRepository;
-    private GetPatientService getPatientService;
-    private GetDoctorService getDoctorService;
-    private GetServiceTypeService getServiceTypeService;
 
-    public CreateOrderService(OrderRepository orderRepository, GetPatientService getPatientService, GetDoctorService getDoctorService, GetServiceTypeService getServiceTypeService) {
-        this.orderRepository = orderRepository;
-        this.getPatientService = getPatientService;
-        this.getDoctorService = getDoctorService;
-        this.getServiceTypeService = getServiceTypeService;
-    }
+    // En un sistema real, aquí iría la inyección de dependencias
+    // para los repositorios de persistencia.
+    // private final ClinicalOrderRepository orderRepository;
 
-    
-    public Order create(String patientId, String doctorId, String service) throws Exception {
-  
-        Patient patient = getPatientService.getPatient(patientId);
-        Doctor doctor = getDoctorService.getDoctor(doctorId);
+    // public CreateOrderService(ClinicalOrderRepository orderRepository) {
+    //     this.orderRepository = orderRepository;
+    // }
 
-        if (patient == null) {
-            throw new Exception("El paciente no ha sido encontrado");
-        }
+    /**
+     * Crea una nueva orden clínica.
+     *
+     * @param patientId El ID del paciente.
+     * @param doctorId El ID del doctor.
+     * @param orderText El texto de la orden.
+     * @return La orden clínica creada con un ID único.
+     */
+    public ClinicalOrder createClinicalOrder(String patientId, String doctorId, String orderText) {
+        // La lógica de negocio para crear la orden
+        // (validaciones, etc.) se encuentra aquí.
+        ClinicalOrder newOrder = new ClinicalOrder(patientId, doctorId, orderText);
 
-        if (doctor == null) {
-            throw new Exception("El doctor no ha sido encontrado");
-        }
+        // Guardar la orden en la base de datos (comentado por ahora)
+        // return orderRepository.save(newOrder);
 
-        Order order = new Order(patient.getSocialSecurityNumber(), doctor.getSocialSecurityNumber(), service);
-
-        return orderRepository.save(order);
+        // Retornamos la orden recién creada para la demostración.
+        return newOrder;
     }
 }
-

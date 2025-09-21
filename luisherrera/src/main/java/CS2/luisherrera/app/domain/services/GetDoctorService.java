@@ -5,18 +5,22 @@
 package CS2.luisherrera.app.domain.services;
 
 import CS2.luisherrera.app.domain.model.Doctor;
-import CS2.luisherrera.app.domain.repositories.EmployeeRepository;
+import org.springframework.stereotype.Service;
 
+/**
+ * Servicio de dominio para obtener datos de doctores.
+ * Proporciona métodos para buscar doctores.
+ */
+@Service
 public class GetDoctorService {
-
-    private EmployeeRepository employeeRepository;
-
-    public GetDoctorService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
-
-    public Doctor getDoctor(String socialSecurityNumber) {
-      
-        return null; 
+    
+    /**
+     * Obtiene un doctor por su ID.
+     * @param doctorId El ID del doctor a buscar.
+     * @return Un objeto Doctor.
+     */
+    public Doctor getDoctor(String doctorId) {
+        // Lógica de búsqueda del doctor
+        return null;
     }
 }

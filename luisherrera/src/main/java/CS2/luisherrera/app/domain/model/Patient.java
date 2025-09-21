@@ -6,33 +6,61 @@
     
 package CS2.luisherrera.app.domain.model;
 
-import java.util.UUID;
-import java.util.Date;
-import java.util.Map;
-
+/**
+ * Clase de dominio que representa a un paciente.
+ * Contiene los datos esenciales y la lógica de negocio.
+ */
 public class Patient {
 
-    private UUID id;
-    private String fullName;
-    private String socialSecurityNumber;
-    private String birthDate; 
+    private String name;
+    private String lastName;
+    private String phoneNumber;
     private String address;
+    private String disease;
+    private String socialSecurityNumber;
 
-    
-    public Patient(String fullName, String socialSecurityNumber, String birthDate, String address) {
-        this.id = UUID.randomUUID();
-        this.fullName = fullName;
-        this.socialSecurityNumber = socialSecurityNumber;
-        this.birthDate = birthDate;
+    // Constructor para ser utilizado por el PatientBuilder
+    public Patient(String name, String lastName, String phoneNumber, String address, String disease, String socialSecurityNumber) {
+        this.name = name;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.address = address;
+        this.disease = disease;
+        this.socialSecurityNumber = socialSecurityNumber;
     }
 
+    // Nuevo constructor para ser utilizado por el GetPatientService
     public Patient(String name, String socialSecurityNumber) {
+        this.name = name;
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDisease() {
+        return disease;
+    }
+
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
+
+    public String getFullName() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    public String getFullName() { return fullName; }
-    public String getSocialSecurityNumber() { return socialSecurityNumber; }
-    
 }
