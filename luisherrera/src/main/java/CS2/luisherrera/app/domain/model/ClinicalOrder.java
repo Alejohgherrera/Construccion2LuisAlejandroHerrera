@@ -4,39 +4,98 @@
  */
 package CS2.luisherrera.app.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
- * Modelo de Dominio que representa una orden clínica.
- * Esta clase también está marcada como una Entidad JPA, mapeada a una tabla de la base de datos.
+ * Clinical Order domain model.
+ * This class represents a core data entity within the application,
+ * independent of any specific technology or framework.
  */
-@Getter
-@Setter
-@NoArgsConstructor
-@Entity
 public class ClinicalOrder {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String patientId;
-    private String doctorId;
-    private String orderText;
-    private LocalDateTime createdAt;
+    private String patientName;
+    private String orderType; // e.g., "Lab Test", "Medication", "Imaging"
+    private String details;
+    private LocalDate creationDate;
 
-    // Constructor para inicializar los datos de la orden
+    /**
+     * Default constructor.
+     */
+    public ClinicalOrder() {
+    }
+
+    /**
+     * Parameterized constructor to create a new ClinicalOrder object.
+     *
+     * @param id           The unique identifier of the order.
+     * @param patientName  The name of the patient associated with the order.
+     * @param orderType    The type of the clinical order.
+     * @param details      Detailed description of the order.
+     * @param creationDate The date when the order was created.
+     */
+    public ClinicalOrder(Long id, String patientName, String orderType, String details, LocalDate creationDate) {
+        this.id = id;
+        this.patientName = patientName;
+        this.orderType = orderType;
+        this.details = details;
+        this.creationDate = creationDate;
+    }
+
     public ClinicalOrder(String patientId, String doctorId, String orderText) {
-        this.patientId = patientId;
-        this.doctorId = doctorId;
-        this.orderText = orderText;
-        this.createdAt = LocalDateTime.now(); // Se establece la fecha y hora de creación automáticamente
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    // --- Getters and Setters ---
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ClinicalOrder{" +
+                "id=" + id +
+                ", patientName='" + patientName + '\'' +
+                ", orderType='" + orderType + '\'' +
+                ", details='" + details + '\'' +
+                ", creationDate=" + creationDate +
+                '}';
     }
 }
