@@ -4,50 +4,46 @@
  */
 package CS2.luisherrera.app.domain.model;
 
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.time.LocalDateTime;
 
 /**
- * Clinical Order domain model.
- * This class represents a core data entity within the application,
- * independent of any specific technology or framework.
+ * Entidad JPA ClinicalOrder.
+ * La inclusión de @Entity y @Id resuelve el error "Not a managed type".
+ * Esta entidad representa una orden clínica.
  */
+@Entity
+@Table(name = "clinical_orders")
 public class ClinicalOrder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String patientName;
-    private String orderType; // e.g., "Lab Test", "Medication", "Imaging"
-    private String details;
-    private LocalDate creationDate;
 
-    /**
-     * Default constructor.
-     */
+    private String patientId;
+
+    private String description;
+
+    private LocalDateTime creationDate;
+    
+    // Constructor vacío requerido por JPA
     public ClinicalOrder() {
+        this.creationDate = LocalDateTime.now();
+    }
+    
+    // Constructor con campos mínimos para facilitar la creación de instancias
+    public ClinicalOrder(String patientId, String description, String orderText) {
+        this.patientId = patientId;
+        this.description = description;
+        this.creationDate = LocalDateTime.now();
     }
 
-    /**
-     * Parameterized constructor to create a new ClinicalOrder object.
-     *
-     * @param id           The unique identifier of the order.
-     * @param patientName  The name of the patient associated with the order.
-     * @param orderType    The type of the clinical order.
-     * @param details      Detailed description of the order.
-     * @param creationDate The date when the order was created.
-     */
-    public ClinicalOrder(Long id, String patientName, String orderType, String details, LocalDate creationDate) {
-        this.id = id;
-        this.patientName = patientName;
-        this.orderType = orderType;
-        this.details = details;
-        this.creationDate = creationDate;
-    }
-
-    public ClinicalOrder(String patientId, String doctorId, String orderText) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    // --- Getters and Setters ---
-
+    // Getters y Setters (Necesarios para que JPA acceda a los campos)
     public Long getId() {
         return id;
     }
@@ -56,46 +52,27 @@ public class ClinicalOrder {
         this.id = id;
     }
 
-    public String getPatientName() {
-        return patientName;
+    public String getPatientId() {
+        return patientId;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
-    public String getOrderType() {
-        return orderType;
+    public String getDescription() {
+        return description;
     }
 
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
-    }
-
-    @Override
-    public String toString() {
-        return "ClinicalOrder{" +
-                "id=" + id +
-                ", patientName='" + patientName + '\'' +
-                ", orderType='" + orderType + '\'' +
-                ", details='" + details + '\'' +
-                ", creationDate=" + creationDate +
-                '}';
     }
 }

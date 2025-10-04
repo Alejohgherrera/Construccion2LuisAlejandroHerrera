@@ -8,7 +8,7 @@ import CS2.luisherrera.app.domain.model.Employee;
 import CS2.luisherrera.app.domain.model.Doctor;
 import CS2.luisherrera.app.domain.model.Nurse;
 import CS2.luisherrera.app.domain.model.emuns.Role;
-import CS2.luisherrera.app.domain.repositories.EmployeeRepository;
+import CS2.luisherrera.infrastructure.persistence.repositories.EmployeeRepository;
 
 public class ManageEmployeeService {
 

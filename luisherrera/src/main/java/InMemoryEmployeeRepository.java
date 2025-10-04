@@ -10,7 +10,7 @@
 package CS2.luisherrera.app.infrastructure;
 
 import CS2.luisherrera.app.domain.model.Employee;
-import CS2.luisherrera.app.domain.repositories.EmployeeRepository;
+import CS2.luisherrera.infrastructure.persistence.repositories.EmployeeRepository;
 import java.util.HashMap;
 import java.util.Map;
 

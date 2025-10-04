@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 import CS2.luisherrera.app.domain.model.ClinicalOrder; // Importación corregida
 
 @Repository
-public interface ClinicalOrderRepository extends JpaRepository<ClinicalOrder, String> {
+public interface ClinicalOrderRepository extends JpaRepository<ClinicalOrder, Long> {
 }
