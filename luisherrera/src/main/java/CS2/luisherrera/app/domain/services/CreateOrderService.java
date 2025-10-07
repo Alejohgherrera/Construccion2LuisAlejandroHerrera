@@ -5,40 +5,36 @@
 package CS2.luisherrera.app.domain.services;
 
 import CS2.luisherrera.app.domain.model.ClinicalOrder;
+
+import CS2.luisherrera.infrastructure.persistence.repositories.ClinicalOrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
- * Servicio de dominio que encapsula la lógica de negocio para
- * la creación de órdenes clínicas.
+ * Servicio de dominio responsable de la lógica de creación de órdenes clínicas.
  */
 @Service
 public class CreateOrderService {
 
-    // En un sistema real, aquí iría la inyección de dependencias
-    // para los repositorios de persistencia.
-    // private final ClinicalOrderRepository orderRepository;
+    private final ClinicalOrderRepository orderRepository;
 
-    // public CreateOrderService(ClinicalOrderRepository orderRepository) {
-    //     this.orderRepository = orderRepository;
-    // }
+    public CreateOrderService(ClinicalOrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     /**
-     * Crea una nueva orden clínica.
+     * Crea y guarda una nueva orden clínica.
      *
      * @param patientId El ID del paciente.
-     * @param doctorId El ID del doctor.
-     * @param orderText El texto de la orden.
-     * @return La orden clínica creada con un ID único.
+     * @param description La descripción de la orden.
+     * @return La orden clínica creada y guardada.
      */
-    public ClinicalOrder createClinicalOrder(String patientId, String doctorId, String orderText) {
-        // La lógica de negocio para crear la orden
-        // (validaciones, etc.) se encuentra aquí.
-        ClinicalOrder newOrder = new ClinicalOrder(patientId, doctorId, orderText);
+    public ClinicalOrder createOrder(String patientId, String description) {
+        // Línea 36 corregida: Ahora solo se pasan patientId y description.
+        // La fecha de creación se inicializa dentro del constructor de ClinicalOrder.
+        ClinicalOrder newOrder = new ClinicalOrder(patientId, description);
 
-        // Guardar la orden en la base de datos (comentado por ahora)
-        // return orderRepository.save(newOrder);
-
-        // Retornamos la orden recién creada para la demostración.
-        return newOrder;
+        return orderRepository.save(newOrder);
     }
 }

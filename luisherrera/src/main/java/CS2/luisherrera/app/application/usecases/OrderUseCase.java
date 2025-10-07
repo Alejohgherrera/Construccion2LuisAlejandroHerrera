@@ -5,42 +5,32 @@
 package CS2.luisherrera.app.application.usecases;
 
 import CS2.luisherrera.app.domain.model.ClinicalOrder;
-import org.springframework.stereotype.Service;
+import CS2.luisherrera.app.domain.services.CreateOrderService;
+import org.springframework.stereotype.Component;
 
 /**
- * Implementación del caso de uso de órdenes.
- * Contiene la lógica de negocio para crear y manipular órdenes.
- * Es el "núcleo" de la aplicación.
+ * Caso de Uso para la creación de una Orden Clínica.
+ * Actúa como orquestador entre el controlador (si existe) y el servicio de dominio.
  */
-@Service
+@Component
 public class OrderUseCase {
 
-    // Simulación de un servicio de persistencia (puerto de salida)
-    //private final OrderRepository orderRepository;
+    private final CreateOrderService createOrderService;
 
-    // Puedes inyectar un repositorio aquí cuando esté implementado.
-    //public OrderUseCase(OrderRepository orderRepository) {
-    //    this.orderRepository = orderRepository;
-    //}
+    public OrderUseCase(CreateOrderService createOrderService) {
+        this.createOrderService = createOrderService;
+    }
 
     /**
-     * Crea una nueva orden clínica.
+     * Crea una nueva orden clínica usando el servicio de dominio.
      *
-     * @param patientId El ID del paciente.
-     * @param doctorId El ID del doctor.
-     * @param orderText El texto de la orden.
-     * @return La orden clínica creada, con un ID único.
+     * @param patientId ID del paciente.
+     * @param description Descripción de la orden.
+     * @return La orden clínica recién creada.
      */
-    public ClinicalOrder createClinicalOrder(String patientId, String doctorId, String orderText) {
-        // En una aplicación real, la lógica iría aquí:
-        // 1. Validar los datos de entrada
-        // 2. Crear una nueva entidad de dominio
-        ClinicalOrder newOrder = new ClinicalOrder(patientId, doctorId, orderText);
-
-        // 3. Persistir la entidad usando el repositorio
-        // Order createdOrder = orderRepository.save(newOrder);
-
-        // Por ahora, solo devolvemos la orden para simular el proceso
-        return newOrder;
+    public ClinicalOrder executeCreateOrder(String patientId, String description) {
+        // Línea 38 corregida (asumiendo que aquí o en un método auxiliar estaba el error):
+        // Nos aseguramos de que la llamada al servicio solo usa dos argumentos.
+        return createOrderService.createOrder(patientId, description);
     }
 }

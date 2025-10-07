@@ -4,44 +4,56 @@
  */
 package CS2.luisherrera.app.adapter.in.rest.controllers;
 
+import CS2.luisherrera.app.application.usecases.OrderUseCase;
 import CS2.luisherrera.app.domain.model.ClinicalOrder;
-import CS2.luisherrera.app.domain.services.CreateOrderService;
-import CS2.luisherrera.app.adapter.in.rest.request.CreateOrderRequest; // Importación correcta del DTO
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
 
 /**
- * Adaptador de entrada que maneja las solicitudes HTTP para
- * la gestión de órdenes clínicas.
+ * Controlador REST para manejar las operaciones relacionadas con las Órdenes Clínicas.
+ * Se utiliza el patrón Controller -> UseCase.
  */
 @RestController
 @RequestMapping("/api/orders")
 public class ClinicalOrderController {
 
-    private final CreateOrderService createOrderService;
+    private final OrderUseCase orderUseCase;
 
-    @Autowired
-    public ClinicalOrderController(CreateOrderService createOrderService) {
-        this.createOrderService = createOrderService;
+    public ClinicalOrderController(OrderUseCase orderUseCase) {
+        this.orderUseCase = orderUseCase;
+    }
+
+    /**
+     * DTO (Data Transfer Object) para la solicitud de creación de una Orden Clínica.
+     * Contiene solo los datos necesarios (patientId y description).
+     */
+    private static class ClinicalOrderCreationRequest {
+        private String patientId;
+        private String description;
+
+        // Getters y Setters
+        public String getPatientId() { return patientId; }
+        public void setPatientId(String patientId) { this.patientId = patientId; }
+        public String getDescription() { return description; }
+        public void setDescription(String description) { this.description = description; }
     }
 
     /**
      * Endpoint para crear una nueva orden clínica.
+     * CORRECCIÓN: Ahora llama a OrderUseCase.executeCreateOrder() con solo dos argumentos,
+     * alineándose con la firma actualizada del caso de uso y del servicio.
      *
-     * @param request La solicitud DTO que contiene los datos de la orden.
-     * @return Una respuesta HTTP que contiene la orden clínica creada.
+     * @param request El cuerpo de la solicitud que contiene los datos de la nueva orden.
+     * @return ResponseEntity con la orden creada y el código 201 (Created).
      */
     @PostMapping
-    public ResponseEntity<ClinicalOrder> createOrder(@RequestBody CreateOrderRequest request) {
-        // Llama al servicio del dominio con los datos del DTO
-        ClinicalOrder newOrder = createOrderService.createClinicalOrder(
+    public ResponseEntity<ClinicalOrder> createClinicalOrder(@RequestBody ClinicalOrderCreationRequest request) {
+        // La llamada debe reflejar la firma de dos argumentos del Caso de Uso (OrderUseCase).
+        ClinicalOrder createdOrder = orderUseCase.executeCreateOrder(
                 request.getPatientId(),
-                request.getDoctorId(),
-                request.getOrderText()
+                request.getDescription()
         );
-
-        return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 }

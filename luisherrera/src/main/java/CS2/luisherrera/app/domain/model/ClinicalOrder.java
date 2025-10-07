@@ -4,18 +4,14 @@
  */
 package CS2.luisherrera.app.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * Entidad JPA ClinicalOrder.
- * La inclusión de @Entity y @Id resuelve el error "Not a managed type".
- * Esta entidad representa una orden clínica.
+ * Entidad de dominio que representa una Orden Clínica.
+ * Mapeada a la tabla 'clinical_orders' en la base de datos.
+ * * Se corrigió el conflicto de mapeo eliminando los atributos 'name' de @Column
+ * y permitiendo que Hibernate use la convención de camelCase a snake_case.
  */
 @Entity
 @Table(name = "clinical_orders")
@@ -25,31 +21,41 @@ public class ClinicalOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Ahora mapeará 'patientId' a la columna 'patient_id' automáticamente por convención.
+    @Column(nullable = false)
     private String patientId;
 
+    @Column(nullable = false)
     private String description;
 
+    // Ahora mapeará 'creationDate' a la columna 'creation_date' automáticamente por convención.
+    @Column(nullable = false)
     private LocalDateTime creationDate;
-    
-    // Constructor vacío requerido por JPA
-    public ClinicalOrder() {
-        this.creationDate = LocalDateTime.now();
+
+    // ------------------- CONSTRUCTORES -------------------
+
+    /**
+     * Constructor sin argumentos requerido por JPA (Hibernate).
+     */
+    protected ClinicalOrder() {
+        // Requerido por la especificación JPA
     }
-    
-    // Constructor con campos mínimos para facilitar la creación de instancias
-    public ClinicalOrder(String patientId, String description, String orderText) {
+
+    /**
+     * Constructor utilizado por el código de negocio para crear una nueva orden.
+     * @param patientId ID del paciente asociado.
+     * @param description Descripción detallada de la orden.
+     */
+    public ClinicalOrder(String patientId, String description) {
         this.patientId = patientId;
         this.description = description;
-        this.creationDate = LocalDateTime.now();
+        this.creationDate = LocalDateTime.now(); // Inicializa la fecha de creación
     }
+    
+    // ------------------- GETTERS Y SETTERS -------------------
 
-    // Getters y Setters (Necesarios para que JPA acceda a los campos)
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getPatientId() {
@@ -74,5 +80,15 @@ public class ClinicalOrder {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ClinicalOrder{" +
+                "id=" + id +
+                ", patientId='" + patientId + '\'' +
+                ", description='" + description + '\'' +
+                ", creationDate=" + creationDate +
+                '}';
     }
 }
