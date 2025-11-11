@@ -4,54 +4,62 @@
  */
 package CS2.luisherrera.app.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Esta clase representa la entidad de usuario, que se mapea a una tabla en la base de datos.
- * Las anotaciones de Jakarta Persistence (JPA) la definen como una entidad.
+ * Contiene la información básica de autenticación y de perfil del usuario.
  */
 @Entity
 @Table(name = "users") // Se recomienda nombrar la tabla en minúsculas y en plural
 public class User {
 
     /**
-     * El ID único para cada usuario. La anotación @Id lo marca como la clave primaria.
-     * @GeneratedValue(strategy = GenerationType.IDENTITY) indica que la base de datos
-     * generará este valor automáticamente.
+     * ID único del usuario (clave primaria).
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * El nombre completo del usuario.
+     * Nombre completo del usuario.
      */
     private String name;
 
     /**
-     * La dirección de correo electrónico del usuario.
+     * Dirección de correo electrónico.
      */
     private String email;
 
+    /**
+     * Nombre de usuario usado para iniciar sesión.
+     */
+    private String username;
+
+    /**
+     * Contraseña cifrada del usuario.
+     */
+    private String password;
+
+    /**
+     * Rol o perfil del usuario (por ejemplo: ADMIN, USER, etc.).
+     */
+    private String role;
+
     // --- Constructores ---
 
-    /**
-     * Constructor predeterminado (requerido por JPA).
-     */
-    public User() {}
+    public User() {
+        // Constructor vacío requerido por JPA
+    }
 
-    /**
-     * Constructor con todos los campos para crear un nuevo objeto User.
-     * @param name El nombre del usuario.
-     * @param email La dirección de correo electrónico.
-     */
-    public User(String name, String email) {
+    public User(String name, String email, String username, String password, String role) {
         this.name = name;
         this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public User(Long id, String name, String email) {
@@ -84,12 +92,53 @@ public class User {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    /**
+     * Devuelve una lista con el rol del usuario.
+     * Esto permite compatibilidad con los métodos de Spring Security.
+     */
+    public List<String> getRoles() {
+        return Collections.singletonList(role);
+    }
+
+    /**
+     * Método usado por Spring Security para obtener el ID del usuario.
+     */
+    public Long getUserId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                "id=" + id +
                ", name='" + name + '\'' +
                ", email='" + email + '\'' +
+               ", username='" + username + '\'' +
+               ", role='" + role + '\'' +
                '}';
     }
 }
