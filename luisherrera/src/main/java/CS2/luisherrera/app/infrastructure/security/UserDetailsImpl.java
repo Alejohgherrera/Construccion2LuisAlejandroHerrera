@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
@@ -24,19 +25,14 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
-    UserDetailsImpl(Object user) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     /**
-     * Mapea los roles (cadenas de texto) del usuario a objetos GrantedAuthority
-     * que Spring Security utiliza para la autorización.
-     * @return Colección de autoridades.
+     * Convierte los roles del usuario en GrantedAuthority
+     * que Spring Security usa para autorización.
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (user.getRoles() == null) {
-            return java.util.Collections.emptyList();
+        if (user.getRoles() == null || user.getRoles().isEmpty()) {
+            return Collections.emptyList();
         }
         return user.getRoles().stream()
                 .map(SimpleGrantedAuthority::new)
@@ -53,7 +49,7 @@ public class UserDetailsImpl implements UserDetails {
         return user.getUsername();
     }
 
-    // Métodos para el estado de la cuenta (por simplicidad, todos son true)
+    // Métodos sobre el estado de la cuenta
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -74,6 +70,7 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+    // Getter adicional para obtener el ID del usuario si lo necesitas
     public Long getUserId() {
         return user.getUserId();
     }
