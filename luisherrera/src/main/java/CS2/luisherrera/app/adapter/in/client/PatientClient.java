@@ -19,20 +19,13 @@ public class PatientClient {
     private static final Scanner scanner = new Scanner(System.in);
     private final PatientBuilder patientBuilder;
 
-    // Los servicios reales se inyectarían aquí en una aplicación Spring Boot.
-    // Por ejemplo:
-    // @Autowired
-    // private GetPatientService getPatientService;
-    // @Autowired
-    // private ManagePatientService managePatientService;
+    
 
     public PatientClient() {
         this.patientBuilder = new PatientBuilder();
     }
 
-    /**
-     * Muestra el menú principal al usuario.
-     */
+    
     public void showMenu() {
         System.out.println("--- Portal de Pacientes ---");
         System.out.println("1. Registrar un nuevo paciente");
@@ -87,8 +80,7 @@ public class PatientClient {
             Patient patient = patientBuilder.build(fullName, lastName, phoneNumber, address, disease, socialSecurityNumber);
             System.out.println("Paciente creado: " + patient.getName() + " con NSS " + patient.getSocialSecurityNumber());
 
-            // En una aplicación real, se llamaría a un servicio para guardar el paciente.
-            // Ejemplo: managePatientService.save(patient);
+        
 
         } catch (Exception e) {
             System.out.println("Error al registrar paciente: " + e.getMessage());

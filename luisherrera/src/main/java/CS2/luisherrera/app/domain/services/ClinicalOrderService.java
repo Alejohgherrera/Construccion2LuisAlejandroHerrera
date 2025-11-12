@@ -43,7 +43,7 @@ public class ClinicalOrderService {
      */
     @Transactional(readOnly = true)
     public List<ClinicalOrder> findAllOrders() {
-        // En un entorno real, se usaría paginación, pero para el CLI, se listan todas.
+        //  se usaría paginación, pero para el CLI, se listan todas.
         return clinicalOrderRepository.findAll();
     }
 
@@ -57,5 +57,5 @@ public class ClinicalOrderService {
         return clinicalOrderRepository.findById(id);
     }
 
-    // Puedes agregar más métodos CRUD (update, delete) aquí si son necesarios.
+    
 }

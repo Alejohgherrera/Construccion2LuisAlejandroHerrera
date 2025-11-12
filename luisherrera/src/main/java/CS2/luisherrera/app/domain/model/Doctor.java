@@ -6,8 +6,7 @@
 package CS2.luisherrera.app.domain.model;
 
 /**
- * Modelo de dominio para un doctor.
- * Esta clase es el objeto de negocio, es independiente de la persistencia.
+ * 
  */
 public class Doctor {
     private String fullName;

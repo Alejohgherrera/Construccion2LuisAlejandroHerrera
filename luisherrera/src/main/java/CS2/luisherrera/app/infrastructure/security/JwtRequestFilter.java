@@ -36,7 +36,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String path = request.getServletPath();
-        // ✅ Ignora endpoints públicos
+        // Ignora endpoints públicos
         if (path.equals("/auth/login") || path.equals("/auth/register")) {
             chain.doFilter(request, response);
             return;

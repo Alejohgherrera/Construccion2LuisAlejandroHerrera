@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST Controller for managing user-related requests.
- * This class acts as an adapter, translating HTTP requests to service layer calls,
- * following the "Ports and Adapters" architectural pattern.
+ * 
  */
 @RestController
 @RequestMapping("/api/users")

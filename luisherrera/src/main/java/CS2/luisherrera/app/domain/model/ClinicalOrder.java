@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Entidad de dominio que representa una Orden Clínica.
  * Mapeada a la tabla 'clinical_orders' en la base de datos.
- * * Se corrigió el conflicto de mapeo eliminando los atributos 'name' de @Column
- * y permitiendo que Hibernate use la convención de camelCase a snake_case.
+ * 
  */
 @Entity
 @Table(name = "clinical_orders")
@@ -21,24 +20,20 @@ public class ClinicalOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Ahora mapeará 'patientId' a la columna 'patient_id' automáticamente por convención.
+    
     @Column(nullable = false)
     private String patientId;
 
     @Column(nullable = false)
     private String description;
 
-    // Ahora mapeará 'creationDate' a la columna 'creation_date' automáticamente por convención.
+   
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
-    // ------------------- CONSTRUCTORES -------------------
-
-    /**
-     * Constructor sin argumentos requerido por JPA (Hibernate).
-     */
+   
     protected ClinicalOrder() {
-        // Requerido por la especificación JPA
+        
     }
 
     /**
@@ -52,7 +47,7 @@ public class ClinicalOrder {
         this.creationDate = LocalDateTime.now(); // Inicializa la fecha de creación
     }
     
-    // ------------------- GETTERS Y SETTERS -------------------
+  
 
     public Long getId() {
         return id;

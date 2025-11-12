@@ -13,45 +13,33 @@ import java.util.List;
  * Contiene la información básica de autenticación y de perfil del usuario.
  */
 @Entity
-@Table(name = "users") // Se recomienda nombrar la tabla en minúsculas y en plural
+@Table(name = "users") ural
 public class User {
 
-    /**
-     * ID único del usuario (clave primaria).
-     */
+   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * Nombre completo del usuario.
-     */
+   
     private String name;
 
-    /**
-     * Dirección de correo electrónico.
-     */
+  
     private String email;
 
-    /**
-     * Nombre de usuario usado para iniciar sesión.
-     */
+  
     private String username;
 
-    /**
-     * Contraseña cifrada del usuario.
-     */
+  
     private String password;
 
-    /**
-     * Rol o perfil del usuario (por ejemplo: ADMIN, USER, etc.).
-     */
+    
     private String role;
 
-    // --- Constructores ---
+  
 
     public User() {
-        // Constructor vacío requerido por JPA
+       
     }
 
     public User(String name, String email, String username, String password, String role) {
@@ -66,7 +54,7 @@ public class User {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    // --- Getters y Setters ---
+    
 
     public Long getId() {
         return id;

@@ -29,7 +29,7 @@ public class AuthController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    // ✅ Endpoint para registrar nuevos usuarios
+    // Endpoint para registrar nuevos usuarios
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
@@ -43,7 +43,7 @@ public class AuthController {
         return ResponseEntity.ok("Usuario registrado correctamente");
     }
 
-    // ✅ Endpoint para iniciar sesión y generar token JWT
+    // Endpoint para iniciar sesión y generar token JWT
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody User user) {
         try {

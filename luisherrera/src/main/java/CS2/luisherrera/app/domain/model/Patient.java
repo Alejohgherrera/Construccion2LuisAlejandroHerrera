@@ -8,7 +8,7 @@ package CS2.luisherrera.app.domain.model;
 
 /**
  * Clase de dominio que representa a un paciente.
- * Contiene los datos esenciales y la lógica de negocio.
+ * 
  */
 public class Patient {
 

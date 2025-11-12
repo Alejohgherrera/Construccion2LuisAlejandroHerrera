@@ -31,8 +31,7 @@ public class CreateOrderService {
      * @return La orden clínica creada y guardada.
      */
     public ClinicalOrder createOrder(String patientId, String description) {
-        // Línea 36 corregida: Ahora solo se pasan patientId y description.
-        // La fecha de creación se inicializa dentro del constructor de ClinicalOrder.
+        
         ClinicalOrder newOrder = new ClinicalOrder(patientId, description);
 
         return orderRepository.save(newOrder);

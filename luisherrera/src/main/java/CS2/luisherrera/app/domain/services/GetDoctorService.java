@@ -20,7 +20,7 @@ public class GetDoctorService {
      * @return Un objeto Doctor.
      */
     public Doctor getDoctor(String doctorId) {
-        // Lógica de búsqueda del doctor
+        
         return null;
     }
 }

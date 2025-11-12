@@ -10,11 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/**
- * Entidad de persistencia para la tabla 'patient' en la base de datos.
- * Esta clase mapea los datos de la base de datos a un objeto Java.
- * No es parte de la lógica de negocio, sino de la infraestructura.
- */
+
 @Entity
 @Table(name = "patient")
 public class PatientMapper {

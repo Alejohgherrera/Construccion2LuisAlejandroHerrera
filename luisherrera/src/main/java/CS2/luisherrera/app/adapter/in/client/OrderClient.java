@@ -17,11 +17,10 @@ public class OrderClient {
 
     private final RestTemplate restTemplate;
 
-    // La URL se inyecta desde application.properties
     @Value("${api.orders.url}")
     private String ordersApiUrl;
 
-    // El bean de RestTemplate se inyecta aquí
+    
     public OrderClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }

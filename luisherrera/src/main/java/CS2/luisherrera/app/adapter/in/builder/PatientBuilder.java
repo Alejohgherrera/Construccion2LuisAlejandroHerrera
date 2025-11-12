@@ -8,11 +8,7 @@ import CS2.luisherrera.app.adapter.in.validators.PersonValidator;
 import CS2.luisherrera.app.adapter.in.validators.SimpleValidator;
 import CS2.luisherrera.app.domain.model.Patient;
 
-/**
- * Clase constructora (Builder) para el modelo de dominio Patient.
- * Se encarga de construir un objeto Patient a partir de datos de entrada,
- * realizando las validaciones necesarias.
- */
+
 public class PatientBuilder extends SimpleValidator {
 
     private final PersonValidator personValidator;

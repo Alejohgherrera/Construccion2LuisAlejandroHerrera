@@ -18,7 +18,7 @@ public class AuthCredentials {
         this.password = password;
     }
 
-    // Getters y Setters
+   
     public String getUsername() {
         return username;
     }

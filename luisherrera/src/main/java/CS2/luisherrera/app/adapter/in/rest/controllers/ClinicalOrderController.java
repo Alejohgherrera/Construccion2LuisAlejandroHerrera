@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controlador REST para manejar las operaciones relacionadas con las Órdenes Clínicas.
+ * para manejar las operaciones relacionadas con las Órdenes Clínicas.
  * Se utiliza el patrón Controller -> UseCase.
  */
 @RestController
@@ -40,16 +40,14 @@ public class ClinicalOrderController {
     }
 
     /**
-     * Endpoint para crear una nueva orden clínica.
-     * CORRECCIÓN: Ahora llama a OrderUseCase.executeCreateOrder() con solo dos argumentos,
-     * alineándose con la firma actualizada del caso de uso y del servicio.
+     * 
      *
      * @param request El cuerpo de la solicitud que contiene los datos de la nueva orden.
      * @return ResponseEntity con la orden creada y el código 201 (Created).
      */
     @PostMapping
     public ResponseEntity<ClinicalOrder> createClinicalOrder(@RequestBody ClinicalOrderCreationRequest request) {
-        // La llamada debe reflejar la firma de dos argumentos del Caso de Uso (OrderUseCase).
+        
         ClinicalOrder createdOrder = orderUseCase.executeCreateOrder(
                 request.getPatientId(),
                 request.getDescription()

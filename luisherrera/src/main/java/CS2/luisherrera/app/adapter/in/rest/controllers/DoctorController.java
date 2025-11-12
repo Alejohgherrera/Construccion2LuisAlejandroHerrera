@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controlador REST para manejar las solicitudes relacionadas con los doctores.
+ *  para manejar las solicitudes relacionadas con los doctores.
  * Expone endpoints para consultar información de doctores.
  */
 @RestController

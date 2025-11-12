@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Primary; // <- IMPORTANTE
 import java.util.List;
 
 @Service
-@Primary // <- Esta línea indica que este bean será el principal
+@Primary 
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired

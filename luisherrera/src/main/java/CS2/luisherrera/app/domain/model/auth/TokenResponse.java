@@ -8,16 +8,16 @@ package CS2.luisherrera.app.domain.model.auth;
 public class TokenResponse {
     private String token;
 
-    // Constructor vacío
+    
     public TokenResponse() {
     }
 
-    // Constructor con parámetro
+   
     public TokenResponse(String token) {
         this.token = token;
     }
 
-    // Getter y Setter
+   
     public String getToken() {
         return token;
     }

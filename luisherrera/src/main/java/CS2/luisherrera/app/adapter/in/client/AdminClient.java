@@ -22,21 +22,14 @@ public class AdminClient {
     private final PatientBuilder patientBuilder;
     private final DoctorBuilder doctorBuilder;
 
-    // Los servicios reales se inyectarían aquí en una aplicación Spring Boot.
-    // Por ejemplo:
-    // @Autowired
-    // private ManagePatientService managePatientService;
-    // @Autowired
-    // private ManageDoctorService manageDoctorService;
+ 
 
     public AdminClient() {
         this.patientBuilder = new PatientBuilder();
         this.doctorBuilder = new DoctorBuilder();
     }
 
-    /**
-     * Muestra el menú principal al usuario.
-     */
+    
     public void showMenu() {
         System.out.println("--- Panel de Administración de la Clínica ---");
         System.out.println("1. Registrar nuevo paciente");
@@ -121,8 +114,7 @@ public class AdminClient {
             Doctor doctor = doctorBuilder.build(fullName, socialSecurityNumber, medicalSpecialization, medicalLicenseNumber);
             System.out.println("Doctor creado: " + doctor.getName() + " con licencia " + doctor.getMedicalLicenseNumber());
 
-            // En una aplicación real, se llamaría a un servicio para guardar el doctor.
-            // Ejemplo: manageDoctorService.save(doctor);
+          
 
         } catch (Exception e) {
             System.out.println("Error al registrar doctor: " + e.getMessage());

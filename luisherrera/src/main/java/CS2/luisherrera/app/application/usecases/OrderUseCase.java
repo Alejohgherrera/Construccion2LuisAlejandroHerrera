@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Caso de Uso para la creación de una Orden Clínica.
- * Actúa como orquestador entre el controlador (si existe) y el servicio de dominio.
+ * Actúa como orquestador entre el controlador y el servicio de dominio.
  */
 @Component
 public class OrderUseCase {
@@ -29,8 +29,7 @@ public class OrderUseCase {
      * @return La orden clínica recién creada.
      */
     public ClinicalOrder executeCreateOrder(String patientId, String description) {
-        // Línea 38 corregida (asumiendo que aquí o en un método auxiliar estaba el error):
-        // Nos aseguramos de que la llamada al servicio solo usa dos argumentos.
+        
         return createOrderService.createOrder(patientId, description);
     }
 }

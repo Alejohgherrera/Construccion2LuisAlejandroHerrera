@@ -32,10 +32,10 @@ public class ClinicalOrderEntity {
     private LocalDateTime creationDate;
 
     public ClinicalOrderEntity() {
-        // Constructor por defecto requerido por JPA
+        
     }
 
-    // Getters y setters para todos los campos
+    
 
     public Long getId() {
         return id;

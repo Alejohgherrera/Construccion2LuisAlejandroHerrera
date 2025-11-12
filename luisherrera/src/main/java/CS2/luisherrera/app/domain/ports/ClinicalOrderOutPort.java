@@ -8,8 +8,7 @@ import CS2.luisherrera.app.domain.model.ClinicalOrder;
 
 /**
  * Puerto de salida (Out Port) para la persistencia de ClinicalOrder.
- * Esta interfaz define el contrato que la capa de infraestructura debe implementar
- * para guardar y gestionar los datos de las órdenes clínicas.
+ * 
  */
 public interface ClinicalOrderOutPort {
 

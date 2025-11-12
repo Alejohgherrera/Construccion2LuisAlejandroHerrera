@@ -15,8 +15,7 @@ import java.util.Optional;
  
 /**
  * Implementación concreta del puerto de entrada (UserService).
- * La anotación @Service es crucial para que Spring reconozca esta clase
- * y pueda inyectarla en el UserRestController, resolviendo el error de inicio.
+ *            
  */
 @Service
 public class UserServiceImpl implements UserService {

@@ -26,8 +26,7 @@ public class OrderMapper {
         }
 
         OrderEntity entity = new OrderEntity();
-        // Nota: Asume que las propiedades de la orden serán mapeadas aquí.
-        // Ejemplo: entity.setDescription(order.getDescription());
+       
         return entity;
     }
 
@@ -41,8 +40,7 @@ public class OrderMapper {
             return null;
         }
 
-        // Nota: Asume que las propiedades de la entidad serán mapeadas aquí.
-        // Ejemplo: return new Order(entity.getDescription());
+       
         return new Order();
     }
 }
