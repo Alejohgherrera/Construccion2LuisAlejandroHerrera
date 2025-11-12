@@ -4,40 +4,38 @@
  */
 package CS2.luisherrera.app.adapter.in.rest.controllers;
 
-import CS2.luisherrera.app.domain.model.auth.AuthCredentials;
-import CS2.luisherrera.app.domain.model.auth.TokenResponse;
-import CS2.luisherrera.app.domain.model.auth.JwtUtil;
+import CS2.luisherrera.app.infrastructure.security.JwtTokenUtil;
+import CS2.luisherrera.app.infrastructure.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Controlador encargado del proceso de autenticación (login).
- */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private AuthenticationManager authenticationManager;
 
-    /**
-     * Endpoint para autenticar un usuario y generar un token JWT.
-     */
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody AuthCredentials credentials) {
-        String username = credentials.getUsername();
-        String password = credentials.getPassword();
+    public String createAuthenticationToken(@RequestParam String username, @RequestParam String password) throws Exception {
+        // Autentica usuario
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-        // ⚙️ Validación simple (en un caso real iría contra la base de datos)
-        if ("admin".equals(username) && "1234".equals(password)) {
-            String token = jwtUtil.generateToken(username);
-            TokenResponse tokenResponse = new TokenResponse();
-            tokenResponse.setToken(token);
-            return ResponseEntity.ok(tokenResponse);
-        } else {
-            // ❌ Credenciales incorrectas
-            return ResponseEntity.status(401).build();
-        }
+        // Carga detalles del usuario (✅ este es UserDetails)
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        // Genera el token (✅ ahora sí correcto)
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+        return jwt;
     }
 }

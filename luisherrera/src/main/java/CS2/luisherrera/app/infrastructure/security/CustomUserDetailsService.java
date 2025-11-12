@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package CS2.luisherrera.app.infrastructure.security;
 
 import CS2.luisherrera.app.domain.model.User;
@@ -7,44 +11,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.context.annotation.Primary; // <- IMPORTANTE
 
-import java.util.Collections;
+import java.util.List;
 
-/**
- * Servicio que carga los detalles del usuario desde la base de datos
- * y genera el token JWT al iniciar sesión correctamente.
- */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Primary // <- Esta línea indica que este bean será el principal
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    /**
-     * Carga los detalles del usuario por su nombre de usuario.
-     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Buscar el usuario en la base de datos
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("Usuario no encontrado con el nombre: " + username));
 
-        // Retornar un objeto UserDetails que Spring Security entiende
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.emptyList()
+                List.of(new SimpleGrantedAuthority("ROLE_USER"))
         );
     }
-
-    /**
-     * Genera un token JWT para un usuario autenticado.
-     * Se usa desde AuthController.
-     */
-    public String generateTokenForUser(UserDetails userDetails) {
-        return jwtTokenUtil.generateToken(userDetails);
-    }
 }
+
